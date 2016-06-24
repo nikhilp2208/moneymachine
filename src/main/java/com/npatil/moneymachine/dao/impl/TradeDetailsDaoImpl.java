@@ -1,5 +1,6 @@
 package com.npatil.moneymachine.dao.impl;
 
+import com.google.inject.Inject;
 import com.npatil.moneymachine.dao.TradeDetailsDao;
 import com.npatil.moneymachine.models.db.TradeDetails;
 import io.dropwizard.hibernate.AbstractDAO;
@@ -16,6 +17,7 @@ public class TradeDetailsDaoImpl extends AbstractDAO<TradeDetails> implements Tr
      *
      * @param sessionFactory a session provider
      */
+    @Inject
     public TradeDetailsDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }

@@ -3,6 +3,8 @@ package com.npatil.moneymachine.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.npatil.moneymachine.dao.TradeDetailsDao;
+import com.npatil.moneymachine.models.db.TradeDetails;
 import com.npatil.moneymachine.services.TradeService;
 import com.npatil.moneymachine.models.BuyStockRequest;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -25,10 +27,12 @@ import javax.ws.rs.core.MediaType;
 public class TradeResource {
 
     private final TradeService tradeService;
+    private TradeDetailsDao tradeDetailsDao;
 
     @Inject
-    public TradeResource(TradeService tradeService) {
+    public TradeResource(TradeService tradeService, TradeDetailsDao tradeDetailsDao) {
         this.tradeService = tradeService;
+        this.tradeDetailsDao = tradeDetailsDao;
     }
 
     @POST
@@ -36,6 +40,15 @@ public class TradeResource {
     @Timed
     @Path("/buy")
     public void buyStock(BuyStockRequest buyStockRequest) throws Exception {
+        TradeDetails tradeDetails = TradeDetails.builder()
+                .stockCode(buyStockRequest.getStockCode())
+                .quantity(buyStockRequest.getQuantity())
+                .pricePerUnit(buyStockRequest.getPricePerUnit())
+                .brokerage(buyStockRequest.getBrokerage())
+                .transactionDate(buyStockRequest.getTransactionDate())
+                .total((buyStockRequest.getPricePerUnit()*buyStockRequest.getQuantity())+buyStockRequest.getBrokerage())
+                .build();
+        tradeDetailsDao.save(tradeDetails);
 
     }
 }

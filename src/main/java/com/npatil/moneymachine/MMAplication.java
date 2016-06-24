@@ -8,12 +8,14 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 
 /**
  * Created by nikhil.p on 19/06/16.
  */
+@Slf4j
 public class MMAplication extends Application<MMConfiguration> {
 
     public static void main(String[] args) throws Exception {
