@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.npatil.moneymachine.enums.TransactionType;
+import lombok.*;
 
 import java.util.Date;
 
@@ -19,15 +17,19 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategy.LowerCaseWithUnderscoresStrategy.class)
-public class BuyStockRequest {
+public class StockTransactionRequest {
 
     @JsonProperty
     private String stockCode;
 
     @JsonProperty
     private Date transactionDate;
+
+    @JsonProperty
+    private TransactionType transactionType;
 
     @JsonProperty
     private double pricePerUnit;

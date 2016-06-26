@@ -3,6 +3,7 @@ package com.npatil.moneymachine.models.db;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.npatil.moneymachine.enums.TransactionType;
 import io.dropwizard.jackson.JsonSnakeCase;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,7 +44,7 @@ public class TradeDetails implements Serializable {
     @JsonProperty
     @Column(name = "transaction_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss z", timezone = "IST")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private Date transactionDate;
 
     @JsonProperty
@@ -61,6 +62,11 @@ public class TradeDetails implements Serializable {
     @JsonProperty
     @Column(name = "total", nullable = false)
     private double total;
+
+    @JsonProperty
+    @Column(name = "transaction_type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TransactionType transactionType;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp

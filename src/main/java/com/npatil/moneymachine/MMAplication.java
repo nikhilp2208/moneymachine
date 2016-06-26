@@ -9,6 +9,7 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import lombok.extern.slf4j.Slf4j;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.ImprovedNamingStrategy;
 
@@ -50,5 +51,6 @@ public class MMAplication extends Application<MMConfiguration> {
 
     @Override
     public void run(MMConfiguration configuration, Environment environment) throws Exception {
+        environment.jersey().register(MultiPartFeature.class);
     }
 }
